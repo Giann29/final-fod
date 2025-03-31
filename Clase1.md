@@ -1,74 +1,102 @@
 # Fundamentos de Organización de Datos - Clase 1
 
-### ¿Qué es una Base de Datos?
-Es una **colección de datos relacionados** que sirven a múltiples aplicaciones. Un dato representa hechos conocidos que pueden registrarse y que tienen un significado.
-
-### Propiedades de una Base de Datos
-1. Representa aspectos del **mundo real** o un *universo de discurso*.
-2. Es una **colección coherente** de datos con significado.
-3. Se diseña para un **propósito específico** y usuarios concretos.
-4. Se almacena en **archivos en dispositivos de almacenamiento persistente**.
-
----
-
-## 📑 Archivos: Conceptos Fundamentales
+## 1. Conceptos Básicos de Bases de Datos
 
 ### Definición
-Un **archivo** es:
-- Una **colección de registros** en almacenamiento secundario.
-- Un **conjunto de datos** almacenados para un propósito específico.
+- **Base de Datos (BD):**  
+  Es una colección organizada de datos relacionados, diseñada para servir a múltiples aplicaciones y representar aspectos del mundo real.
+
+### Propiedades de una Base de Datos
+1. **Representación del Mundo Real:**  
+   La BD refleja un *universo de discurso*, es decir, aspectos relevantes del entorno o negocio.
+2. **Coherencia y Significado:**  
+   Los datos deben estar organizados de forma lógica y con significado inherente.
+3. **Propósito Específico:**  
+   Se diseña para satisfacer necesidades particulares de usuarios y aplicaciones.
+4. **Almacenamiento Persistente:**  
+   Los datos se guardan en archivos en dispositivos de almacenamiento secundario (discos, SSD, etc.).
+
+### Ejemplos de Aplicaciones Prácticas
+- Sistemas de gestión empresarial, bases de datos para e-commerce, sistemas de información hospitalaria, entre otros, que requieren almacenar y procesar grandes volúmenes de datos de forma eficiente.
+
+---
+
+## 2. Archivos: Conceptos Fundamentales
+
+### Definición y Organización
+- **Archivo:**  
+  Conjunto de registros almacenados en un dispositivo de almacenamiento secundario para un propósito específico.
+- **Componentes:**
+  - **Campo:** Unidad mínima y lógicamente significativa de un registro.
+  - **Registro:** Conjunto de campos que conforman un dato completo dentro del archivo.
 
 ### Organización del Hardware
-- **Almacenamiento primario (RAM) vs. almacenamiento secundario (disco).**
-- Componentes del disco: **Platos, superficies, pistas, sectores y cilindros.**
-
-### Organización de Archivos
-- **Campo:** Unidad más pequeña de un archivo.
-- **Registro:** Conjunto de campos que definen un elemento del archivo.
-
----
-
-## 🔑 Tipos de Acceso a Archivos
-
-### Acceso Secuencial
-- **Físico:** Los registros se acceden uno tras otro en orden físico.
-- **Lógico (indizado):** Se accede según un índice lógico (ejemplo: guía telefónica).
-
-### Acceso Directo
-- Se accede a un registro específico sin recorrer los anteriores.
-
-### Tipos de Archivos según Acceso
-- **Serie:** Se accede en orden físico (secuencial físico).
-- **Secuencial:** Ordenado por una clave (secuencial lógico).
-- **Directo:** Se accede a un registro específico.
+- **Discos:**  
+  Están compuestos por:
+  - **Platos**
+  - **Superficies**
+  - **Pistas**
+  - **Sectores**
+  - **Cilindros**
+- **Comparación:**  
+  Se diferencia el almacenamiento primario (RAM) del secundario (disco).
 
 ---
 
-## 🛠️ Operaciones con Archivos
+## 3. Tipos de Acceso a Archivos
 
-### Buffers
-- **Memoria intermedia** entre el archivo y el programa.
-- **Gestionados por el sistema operativo**.
+### Métodos de Acceso
+- **Acceso Secuencial:**  
+  - **Físico:** Los registros se leen en el orden en que están almacenados.
+  - **Lógico o Indizado:** Se utiliza un índice para acceder a los registros en un orden determinado (como una guía telefónica).
 
-### Operaciones Básicas
-1. **Crear** → `Rewrite(nombre_logico);`
-2. **Abrir** → `Reset(nombre_logico);`
-3. **Leer/Escribir**
-   - `Read(nombre_logico, variable);`
-   - `Write(nombre_logico, variable);`
-4. **Cerrar** → `Close(nombre_logico);`
-5. **Buscar posición** → `Seek(nombre_logico, posición);`
-6. **Funciones adicionales**
-   - `EOF(nombre_logico);` (fin de archivo)
-   - `FileSize(nombre_logico);` (tamaño del archivo)
-   - `FilePos(nombre_logico);` (posición actual)
+- **Acceso Directo (Hashing):**  
+  Permite acceder a un registro específico sin leer los registros previos.
+
+### Tabla Comparativa de Métodos de Acceso
+
+| **Método de Acceso**           | **Descripción**                                                    | **Ventajas**                                      | **Uso Común**                              |
+|--------------------------------|--------------------------------------------------------------------|---------------------------------------------------|--------------------------------------------|
+| **Secuencial Físico**          | Lectura en el orden físico de almacenamiento.                      | Simple, ideal para archivos pequeños.             | Archivos de texto o registros sin índice.  |
+| **Secuencial Lógico (Indizado)** | Uso de un índice para organizar y acceder a los registros.         | Búsqueda más rápida que el acceso físico.          | Directorios telefónicos, índices de libros.|
+| **Directo (Hashing)**          | Acceso inmediato a un registro específico.                         | Muy eficiente en búsquedas puntuales.              | Bases de datos con consultas de alta performance. |
 
 ---
 
-## 📝 Ejercicios de Programación
+## 4. Buffers y Operaciones con Archivos
+
+### Gestión de Buffers
+- **Buffers:**  
+  Memoria intermedia que almacena temporalmente los datos leídos o a escribir en disco.
+- **Importancia:**  
+  Optimiza el acceso a datos, ya que reduce la cantidad de operaciones de E/S (entrada/salida) en disco.
+- **Gestión:**  
+  El sistema operativo se encarga de la manipulación y asignación de estos buffers.
+
+### Operaciones Básicas en Archivos (en Pascal)
+1. **Declaración:**  
+   - Variable: `var archivo: file of Tipo_de_dato;`
+   - Tipo: `type archivo = file of Tipo_de_dato;`
+2. **Asignación y Apertura:**  
+   - **Assign:** Asocia un nombre lógico a un archivo físico.
+   - **Rewrite:** Abre un archivo en modo escritura (creación).
+   - **Reset:** Abre un archivo en modo lectura (o lectura-escritura).
+3. **Lectura/Escritura:**  
+   - **Read:** Extrae datos del archivo a una variable.
+   - **Write:** Escribe datos en el archivo a partir de una variable.
+4. **Cierre:**  
+   - **Close:** Finaliza la operación con el archivo y pone una marca de fin de archivo (EOF).
+5. **Operaciones Adicionales:**  
+   - **EOF:** Función para verificar el fin del archivo.
+   - **FileSize:** Retorna el tamaño del archivo.
+   - **FilePos:** Devuelve la posición actual del puntero.
+   - **Seek:** Mueve el puntero a una posición específica (la numeración comienza en 0).
+
+---
+
+## 5. Ejemplos Prácticos en Pascal
 
 ### Ejemplo 1: Crear un Archivo
-
 ```pascal
 Program Generar_Archivo;
 type archivo = file of integer;
