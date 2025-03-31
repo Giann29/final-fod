@@ -72,7 +72,3 @@ En Pascal, los archivos se manejan con funciones específicas:
    - b) `Assign -> Reset -> Write -> Close`  
    - c) `Assign -> Rewrite -> Read -> Close`  
    - d) `Assign -> Write -> Close`  
-
----
-
-Cuando termines los ejercicios, revisa tus respuestas y corrige cualquier error. ¡Sigue practicando para fortalecer tu comprensión! 🚀
