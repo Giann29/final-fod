@@ -116,3 +116,44 @@ begin
     end;
     close(arc_logico);
 end.
+```
+
+### Ejemplo 2: Leer y Presentar un Archivo
+```pascal
+Procedure Recorrido(var arc_logico: archivo);
+var nro: integer;
+begin
+    reset(arc_logico);
+    while not eof(arc_logico) do begin
+        read(arc_logico, nro);
+        write(nro);
+    end;
+    close(arc_logico);
+end;
+
+```
+
+### Ejemplo 3: Modificar Datos de un Archivo
+```pascal
+Type registro = record
+    Nombre: string[20];
+    Direccion: string[20];
+    Salario: real;
+End;
+
+Empleados = file of registro;
+
+Procedure actualizar(var Emp: empleados);
+var E: registro;
+begin
+    Reset(Emp);
+    while not eof(Emp) do begin
+        Read(Emp, E);
+        E.salario := E.salario * 1.1;
+        Seek(Emp, FilePos(Emp) - 1);
+        Write(Emp, E);
+    end;
+    close(Emp);
+end;
+
+
